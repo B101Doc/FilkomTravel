@@ -1,9 +1,96 @@
 package com.example;
-import java.util.Scanner;
+import java.time.LocalDate;
 
-abstract class Customer{
+public abstract class Customer{
+
+    protected String firstName = null;
+    protected String lastName = null;
+    
+
+
+    protected Customer(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }public String getLastName() {
+        return lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    
+    }
+
+    public abstract void getFullName();
+    public static abstract void makeOrder();
+    public abstract void confirmPay();
+   
+}
+
+class Guest extends Customer{
+
+    public Guest(String firstName, String lastName) {
+        super(firstName, lastName);
+    }
+
+   @Override
+   public void getFullName(){
+    if(lastName != null){
+        System.out.println("Customer Name: " + getFirstName() + " " + getLastName());
+    }
+    else{
+        System.out.println("Customer Name: " + getFirstName());
+    }
+   }
+
+   @Override
+   public static void makeOrder() {
+       Order.getOrderNumber();
+       
+   }
+
+}
+
+ class Member extends Customer{
+    private String memberId;
+    private LocalDate joinedDate;
+
+    private Member(String firstName, String lastName, String memberId, LocalDate joinedDate){
+        super(firstName, lastName);
+        this.memberId = memberId;
+        this.joinedDate = joinedDate;
+    }
+
+    private LocalDate getJoinedDate() {
+        return joinedDate;
+    }
+
+    
+    
+
+    @Override
+    public void getFullName(){
+        if (getLastName() != null){
+            System.out.println("Customer Name: " + getFirstName() + " " + getLastName());
+        }
+        else{
+            System.out.println("Customer Name: " + getFirstName());
+        }
+    }
+
     
 }
+
+    
+    
+
+ 
 // class Customer {
 //     private String firstName;
 //     private String lastName;
