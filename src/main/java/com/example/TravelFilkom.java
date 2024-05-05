@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class TravelFilkom {
     static Vehicle[] vehicles = new Vehicle[100];
     static int vehicleCount = 0;
-    static customer customer = null;
+    static Customer customer = null;
     private static Admin admin = null;
 
     public static void main(String[] args) {

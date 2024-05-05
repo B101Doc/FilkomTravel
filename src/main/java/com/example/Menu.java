@@ -8,6 +8,7 @@ class Menu {
         System.out.println("=======================");
         System.out.println("1. Guest");
         System.out.println("2. Member");
+        System.out.println("3. Daftar Sebagai Member");
         System.out.println("=======================");
 
         int type = in.nextInt();
@@ -16,18 +17,12 @@ class Menu {
         Customer customer;
 
         switch (type) {
-            case 1:
-                TravelFilkom.customer = Guest.guest(in);
-                break;
-            case 2:
-                Member loggedInMember = Member.memberLogin(in);
+            case 1 -> TravelFilkom.customer = Guest.guest(in);                
+            case 2 -> Member loggedInMember = Member.memberLogin(in);
                 if (loggedInMember != null) {
                     TravelFilkom.customer = loggedInMember;
-                }
-                break;
-            default:
-                System.out.println("Pilihan tidak valid");
-                break;
+                }                
+            default -> System.out.println("Pilihan tidak valid");                
         }
     }
 
@@ -132,16 +127,10 @@ class Menu {
             in.nextLine();
 
             switch (choice) {
-                case 1:
-                    Admin.addVehicle(in);
-                    break;
-                case 2:
-                    Admin.viewCustomerData();
-                    break;
-                case 3:
-                    System.out.println("Logout berhasil!");
-                    logout = true;
-                    break;
+                case 1 -> Admin.addVehicle(in);                    
+                case 2 -> Admin.viewCustomerData();                    
+                case 3 -> System.out.println("Logout berhasil!");
+                           logout = true;                    
             }
         }
     }

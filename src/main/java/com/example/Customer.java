@@ -1,13 +1,12 @@
 package com.example;
 import java.time.LocalDate;
-import java.util.Scanner;
 
 
 
 public abstract class Customer {
-    protected String firstName;
-    protected String lastName;
-    protected boolean hasOrder; 
+    private String firstName;
+    private String lastName;
+    private boolean hasOrder; 
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
@@ -23,12 +22,20 @@ public abstract class Customer {
         return lastName;
     }
 
+    public boolean getHasOrder(){
+        return hasOrder;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    
+    public void setHasOrder(boolean hasOrder) {
+        this.hasOrder = hasOrder;
     }
 
     public abstract String getFullName();
@@ -39,13 +46,13 @@ public abstract class Customer {
 }
 
 class Guest extends Customer {
-    public guest(String firstName, String lastName) {
+    public Guest(String firstName, String lastName){
         super(firstName, lastName);
     }
 
     @Override
     public String getFullName() {
-        if (lastName != null) {
+        if (getLastName() != null) {
             return "Customer Name: " + getFirstName() + " " + getLastName();
         } else {
             return "Customer Name: " + getFirstName();
@@ -54,9 +61,9 @@ class Guest extends Customer {
 
     @Override
     public void makeOrder() {
-        if (!hasOrder) {
+        if (!getHasOrder()) {
             System.out.println("Guest makes an order");
-            hasOrder = true; 
+            setHasOrder(true);
         } else {
             System.out.println("Guest already has an active order.");
         }
@@ -64,9 +71,9 @@ class Guest extends Customer {
 
     @Override
     public void confirmPay(int orderNumber) {
-        if (hasOrder) {
+        if (getHasOrder()) {
             System.out.println("Guest confirms payment for order " + orderNumber);
-            hasOrder = false; 
+            setHasOrder(false); 
         } else {
             System.out.println("Guest has no active order to confirm payment.");
         }
@@ -102,9 +109,9 @@ class Member extends Customer {
 
     @Override
     public void makeOrder() {
-        if (!hasOrder) {
+        if (!getHasOrder()) {
             System.out.println("Member makes an order");
-            hasOrder = true; 
+            setHasOrder(true); 
         } else {
             System.out.println("Member already has an active order.");
         }
@@ -112,9 +119,9 @@ class Member extends Customer {
 
     @Override
     public void confirmPay(int orderNumber) {
-        if (hasOrder) {
+        if (getHasOrder()) {
             System.out.println("Member confirms payment for order " + orderNumber);
-            hasOrder = false; 
+            setHasOrder(false);
         } else {
             System.out.println("Member has no active order to confirm payment.");
         }
