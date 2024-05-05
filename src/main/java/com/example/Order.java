@@ -34,12 +34,12 @@ public class Order {
         return subTotal;
     }
 
-    public void printDetails(Customer customer, Vehicle vehicle){
+    public void printDetails(customer customer, Vehicle vehicle){
         System.out.println("===================================");
         System.out.println("Filkom Travel");
         System.out.println("Jl. Perjuangan Masih Panjang");
         System.out.println("___________________________________");
-        System.out.println("Nama Pelanggan: " + customer.getFullName());
+        System.out.println("Nama Pelanggan: " +  customer.getFullName());
         int n = 1;    
         while (orderNumber<n) { 
             System.out.println();            

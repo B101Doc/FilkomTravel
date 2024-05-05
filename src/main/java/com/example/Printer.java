@@ -2,7 +2,7 @@ package com.example;
 
 public class Printer {
 
-    public static void printReceipt(Customer customer, Vehicle vehicle) {
+    public static void printReceipt(customer customer, Vehicle vehicle) {
         if (customer instanceof Member) {
             System.out.println("\nNota Pembayaran:");
             System.out.println("===========================");

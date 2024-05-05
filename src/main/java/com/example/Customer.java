@@ -1,14 +1,15 @@
 package com.example;
 import java.time.LocalDate;
+import java.util.Scanner;
 
-public abstract class Customer{
+public abstract class customer{
 
     protected String firstName = null;
     protected String lastName = null;
     
 
 
-    protected Customer(String firstName, String lastName){
+    protected customer(String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -33,11 +34,13 @@ public abstract class Customer{
    
 }
 
-class Guest extends Customer{
+class Guest extends customer{
 
     public Guest(String firstName, String lastName) {
         super(firstName, lastName);
     }
+
+
 
    @Override
    public void getFullName(){
@@ -57,7 +60,7 @@ class Guest extends Customer{
 
 }
 
- class Member extends Customer{
+ class Member extends customer{
     private String memberId;
     private LocalDate joinedDate;
 
@@ -71,7 +74,9 @@ class Guest extends Customer{
         return joinedDate;
     }
 
-    
+    public static Guest guest(Scanner in){
+        
+    }
     
 
     @Override
