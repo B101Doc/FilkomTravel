@@ -27,7 +27,6 @@ public class Order {
     }
 
     public double getShipCost() {
-        if ()
         return shipCost;
     }
 
@@ -108,7 +107,7 @@ public class Order {
             System.out.println("\nJl. Yang Lurus");
             System.out.println(formattedDateOrdered);
             System.out.println("===========================");
-            System.out.println("Nama Pelanggan: " + customer.getFullName());        
+            System.out.println("Nama Pelanggan: " + Customer.getFullName());
             System.out.println("Kendaraan yang Dipesan: " + vehicle.getVehicleInfo());
             System.out.println("Lama Penyewaan (Jam): " + vehicle.getRentDuration());
             System.out.println("Tanggal Awal Penyewaan: " + vehicle.getStartRent());
@@ -119,7 +118,7 @@ public class Order {
         } else if (customer instanceof Guest) {
             System.out.println("\nNota Pembayaran:");
             System.out.println("===========================");
-            System.out.println("Nama Pelanggan: " + customer.getFullName());            
+            System.out.println("Nama Pelanggan: " + Customer.getFullName());
             System.out.println("Kendaraan yang Dipesan: " + vehicle.getVehicleInfo());
             System.out.println("Lama Penyewaan (Jam): " + vehicle.getRentDuration());
             System.out.println("Tanggal Awal Penyewaan: " + vehicle.getStartRent());

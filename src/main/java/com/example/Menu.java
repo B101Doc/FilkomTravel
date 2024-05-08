@@ -4,30 +4,27 @@ import java.util.Scanner;
 
 class Menu {
     public static void userType(Scanner in) {
-        System.out.println("Pilih jenis Customer: ");
         System.out.println("=======================");
-        System.out.println("1. Guest");
-        System.out.println("2. Member");
+        System.out.println("1. Masuk sebagai Guest");
+        System.out.println("2. Masuk sebagai Member");
         System.out.println("3. Daftar Sebagai Member");
         System.out.println("=======================");
 
         int type = in.nextInt();
         in.nextLine();
 
-        Customer customer;
 
         switch (type) {
             case 1: TravelFilkom.customer = Guest.guest(in);
             break;
-            case 2: Member loggedInMember = Member.memberLogin(in);
-                if (loggedInMember != null) {
-                    TravelFilkom.customer = loggedInMember;
-                }
+            case 2: loginMember(in);
                 break;
+            case 3:         
             default : System.out.println("Pilihan tidak valid");
             break;
         }
     }
+
 
     public static void displayVehicles() {
         System.out.println("\nKendaraan yang tersedia:");
@@ -98,6 +95,40 @@ class Menu {
             Order.printDetails(customer, vehicle);
         }
 
+    }
+
+    public static void registerMember(Scanner in) {
+        System.out.println("=======================");
+        System.out.println("Masukkan nama depan anda:");
+        String firstName = in.nextLine();
+        System.out.println("Masukkan nama belakang anda: ");
+        String lastName = in.nextLine();
+        System.out.println("Masukkan nomor telepon anda: ");
+        String phoneNumber = in.nextLine();
+        System.out.println("Masukkan alamat email anda");
+        String email = in.nextLine();
+        System.out.println("Masukkan username anda: ");
+        String username = in.nextLine();
+        System.out.println("Masukkan password anda: ");
+        String password = in.nextLine();
+
+        Member.registerMember(firstName, lastName, phoneNumber, email, username, password);
+    }
+    public static void loginMember(Scanner in){
+        System.out.println("Masukkan Email atau Username:");
+        String emailOrPhone = in.nextLine();
+        System.out.println("Masukkan Password:");
+        String password = in.nextLine();
+
+        Member member = Member.loginMember(emailOrPhone, password);
+
+        if (member != null) {
+            TravelFilkom.loggedInMembers.put(member.getMemberUsername(), member);
+            System.out.println("Login berhasil!");
+        }
+        else {
+            System.err.println("Email atau password tidak valid");
+        }
     }
 
     public static Admin adminLogin(Scanner in) {

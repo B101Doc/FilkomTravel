@@ -1,5 +1,6 @@
 package com.example;
-import java.util.Scanner;
+import java.util.*;
+
 
 class Admin {
     private String username;

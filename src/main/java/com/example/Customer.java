@@ -6,18 +6,19 @@ import java.util.*;
 
 
 public abstract class Customer {
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private String email;
-    private boolean hasOrder; 
+    protected static List<Member> members = new ArrayList<>();
+    private static String firstName;
+    private static String lastName;
+    private static String phoneNumber;
+    private static String email;
+    private static boolean hasOrder;
 
     public Customer(String firstName, String lastName, String phoneNumber, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.hasOrder = false; 
+        Customer.firstName = firstName;
+        Customer.lastName = lastName;
+        Customer.phoneNumber = phoneNumber;
+        Customer.email = email;
+        Customer.hasOrder = false;
     }
 
     public void setFirstName(String firstName) {
@@ -44,7 +45,11 @@ public abstract class Customer {
         return lastName;
     }
 
-    public String getPhoneNumber() {
+    public static String getFullName(){
+        return firstName + " " + lastName;
+    }
+
+    public static String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -55,12 +60,17 @@ public abstract class Customer {
     public boolean getHasOrder(){
         return hasOrder;
     }
-    
+
+    public static List<Member> getMembers() {
+        return members;
+    }
+
+
+
     public void setHasOrder(boolean hasOrder) {
         this.hasOrder = hasOrder;
     }
 
-    public abstract String getFullName();
 
     public abstract void makeOrder();
 
@@ -82,18 +92,12 @@ class Guest extends Customer {
         System.out.println("Masukkan nama email anda: ");
         String email = in.nextLine();
         System.out.println("Masukkan alamat anda: ");
+        System.out.println();
 
         return new Guest(firstName, lastName, phoneNumber, email);
     }
 
-    @Override
-    public String getFullName() {
-        if (getLastName() != null) {
-            return "Customer Name: " + getFirstName() + " " + getLastName();
-        } else {
-            return "Customer Name: " + getFirstName();
-        }
-    }
+
 
     @Override
     public void makeOrder() {
@@ -117,54 +121,72 @@ class Guest extends Customer {
 }
 
 class Member extends Customer {
-    private String memberId;
     private static String memberUsername;
     private static String memberPassword;
-    private LocalDate joinedDate;
+    private static LocalDate joinedDate;
 
-    public Member(String firstName, String lastName, String phoneNumber, String email, String memberId, LocalDate joinedDate) {
+    public Member(String firstName, String lastName, String phoneNumber, String email, String memberUsername, String memberPassword, LocalDate joinedDate) {
         super(firstName, lastName, phoneNumber, email);
-        this.memberId = memberId;
+        this.memberUsername = memberUsername;
+        this.memberPassword = memberPassword;
         this.joinedDate = joinedDate;
     }
 
-    public void MemberLoginInfo(String memberUsername, String memberPassword){
-    this.memberUsername = memberUsername;
-    this.memberPassword = memberPassword;
-
+    public static String getMemberUsername() {
+        return memberUsername;
     }
 
-    public static Member memberLogin(Scanner in){
-        System.out.println("Masukkan Username: ");
-        String username = in.nextLine();
-        System.out.println("Masukkan Password: ");
-        String password = in.nextLine();
-
-        if (username.equals(memberUsername) && password.equals(memberPassword)){
-            System.out.println("Login berhasil!");
-            return new Member("apa_iyh", "tch", "0812", "dev@" );
-        }
-        else {
-            System.err.println("Username atau password anda salah!");
-            return null;
-        }
+    public static String getMemberPassword() {
+        return memberPassword;
     }
 
-    public String getMemberId() {
-        return memberId;
+    public static int getMembershipDuration() {
+        long diff = LocalDate.now().toEpochDay() - joinedDate.toEpochDay();
+        return (int) (diff / 365);
     }
 
     public LocalDate getJoinedDate() {
         return joinedDate;
     }
 
-    @Override
-    public String getFullName() {
-        if (getLastName() != null) {
-            return "Customer Name: " + getFirstName() + " " + getLastName();
-        } else {
-            return "Customer Name: " + getFirstName();
+    public static void registerMember(String firstName, String lastName, String phoneNumber, String email, String username, String password){
+
+        LocalDate now = LocalDate.now();
+        String formattedDateJoined = joinedDate.format(Order.formatter);
+
+        storeMemberCredentials(firstName, lastName, phoneNumber, memberUsername, memberPassword, phoneNumber, joinedDate);
+
+        Customer.members.add(new Member(firstName, lastName, phoneNumber, username, password, phoneNumber, joinedDate));
+    }
+
+    private static void storeMemberCredentials(String firstName, String lastName, String memberUsername, String memberPassword, String phoneNumber, String email, LocalDate joinedDate){
+
+        System.out.println("Member credentials in database:");
+        System.out.println("Full Name: " + getFullName());
+        System.out.println("Last Name: " + memberUsername);
+        System.out.println("Password: " + memberPassword);
+        System.out.println("Phone Number: " + phoneNumber);
+        System.out.println("Joined date: " + joinedDate );
+        System.out.println("Membership duration: " + getMembershipDuration());
+    }
+
+
+    public static Member loginMember(String emailOrPhone, String password){
+        Member member = getMemberByEmailOrPhone(emailOrPhone);
+
+        if (member != null && password.equals(member.getMemberPassword())){
+            return member;
         }
+        return null;
+    }
+
+   static Member getMemberByEmailOrPhone(String emailOrPhone){
+        for (Member member : Customer.members){
+            if (member.getEmail().equals(emailOrPhone) || member.getPhoneNumber().equals(emailOrPhone)){
+                return member;
+            }
+        }
+       return null;
     }
 
     @Override
@@ -187,8 +209,4 @@ class Member extends Customer {
         }
     }
 
-    public int getMembershipDuration() {
-        long diff = LocalDate.now().toEpochDay() - joinedDate.toEpochDay();
-        return (int) (diff / 365);
-    }
 }

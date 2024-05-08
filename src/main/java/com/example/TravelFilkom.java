@@ -1,18 +1,21 @@
 package com.example;
-import java.util.Scanner;
+import java.util.*;
 
 public class TravelFilkom {
+    static Map<String, Member> loggedInMembers = new HashMap<String, Member>();
     static Vehicle[] vehicles = new Vehicle[100];
     static int vehicleCount = 0;
     static Customer customer = null;
     private static Admin admin = null;
 
     public static void main(String[] args) {
+        boolean isRunning = true;
         Scanner in = new Scanner(System.in);
+
 
         System.out.println("Selamat datang di Filkom Travel App!");
 
-        while (true) {
+        while (isRunning) {
             System.out.println("\nMenu:");
             System.out.println("===================================");
             System.out.println("1. Masuk sebagai Admin");
@@ -52,7 +55,7 @@ public class TravelFilkom {
                     }
                     break;
                 case 5:
-                    Member loggedInMember = Member.memberLogin(in);
+                    Member loggedInMember = Member.loginMember();
                     if (loggedInMember != null) {
                         TravelFilkom.customer = loggedInMember;
                         History.displayOrderHistory();
@@ -60,6 +63,7 @@ public class TravelFilkom {
                     break;
                 case 6:
                     return;
+
 
             }
         }
