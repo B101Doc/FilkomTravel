@@ -1,17 +1,33 @@
 package com.example;
+
 import java.time.LocalDate;
+import java.util.*;
 
 
 
 public abstract class Customer {
     private String firstName;
     private String lastName;
+    private String phoneNumber;
     private boolean hasOrder; 
 
-    public Customer(String firstName, String lastName) {
+    public Customer(String firstName, String lastName, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.hasOrder = false; 
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getFirstName() {
@@ -22,16 +38,12 @@ public abstract class Customer {
         return lastName;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public boolean getHasOrder(){
         return hasOrder;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
     
     public void setHasOrder(boolean hasOrder) {
@@ -46,8 +58,21 @@ public abstract class Customer {
 }
 
 class Guest extends Customer {
-    public Guest(String firstName, String lastName){
-        super(firstName, lastName);
+    public Guest(String firstName, String lastName, String phoneNumber){
+        super(firstName, lastName, phoneNumber);
+    }
+    private static Map<String, Guest> registeredGuests = new HashMap<String, Guest>();
+
+    public static Guest guest(Scanner in){
+        System.out.println("Masukkan nama depan anda: ");
+        String firstName = in.nextLine();
+        System.out.println("Masukkan nama belakang anda: ");
+        String lastName = in.nextLine();
+        System.out.println("Masukkan nomor telepon anda: ");
+        String phoneNumber = in.nextLine();
+        System.out.println("Masukkan alamat anda: ");
+
+        return new Guest(firstName, lastName, phoneNumber);
     }
 
     @Override
@@ -82,12 +107,36 @@ class Guest extends Customer {
 
 class Member extends Customer {
     private String memberId;
+    private static String memberUsername;
+    private static String memberPassword;
     private LocalDate joinedDate;
 
-    public Member(String firstName, String lastName, String memberId, LocalDate joinedDate) {
-        super(firstName, lastName);
+    public Member(String firstName, String lastName, String phoneNumber, String memberId, LocalDate joinedDate) {
+        super(firstName, lastName, phoneNumber);
         this.memberId = memberId;
         this.joinedDate = joinedDate;
+    }
+
+    public void MemberLoginInfo(String memberUsername, String memberPassword){
+    this.memberUsername = memberUsername;
+    this.memberPassword = memberPassword;
+
+    }
+
+    public static Member memberLogin(Scanner in){
+        System.out.println("Masukkan Username: ");
+        String username = in.nextLine();
+        System.out.println("Masukkan Password: ");
+        String password = in.nextLine();
+
+        if (username.equals(memberUsername) && password.equals(memberPassword)){
+            System.out.println("Login berhasil!");
+            return new Member("apa_iyh", "tch", "0812", "dev@");
+        }
+        else {
+            System.err.println("Username atau password anda salah!");
+            return null;
+        }
     }
 
     public String getMemberId() {

@@ -47,12 +47,14 @@ class Admin {
         System.out.println("Kendaraan berhasil ditambahkan dengan harga: Rp" + price);
     }
 
+    
+
 
     public static void viewCustomerData() {
         System.out.println("\nData Pelanggan:");
         if (TravelFilkom.customer != null) {
             System.out.println("=====================");
-            System.out.println("Nama: " + TravelFilkom.customer.getFirstName());
+            System.out.println("Nama Depan: " + TravelFilkom.customer.getFirstName());
             System.out.println("ID: " + TravelFilkom.customer.getId());
             System.out.println("Nomor Telepon: " + TravelFilkom.customer.getPhoneNumber());
             System.out.println("Email: " + TravelFilkom.customer.getEmail());
