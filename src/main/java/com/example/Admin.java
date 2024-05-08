@@ -55,7 +55,7 @@ class Admin {
         if (TravelFilkom.customer != null) {
             System.out.println("=====================");
             System.out.println("Nama Depan: " + TravelFilkom.customer.getFirstName());
-            System.out.println("ID: " + TravelFilkom.customer.getId());
+            System.out.println("Nama Belakang: " + TravelFilkom.customer.getLastName());
             System.out.println("Nomor Telepon: " + TravelFilkom.customer.getPhoneNumber());
             System.out.println("Email: " + TravelFilkom.customer.getEmail());
             System.out.println("=====================");

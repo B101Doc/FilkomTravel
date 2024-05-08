@@ -2,11 +2,11 @@ package com.example;
 
 public class Printer {
 
-    public static void printReceipt(customer customer, Vehicle vehicle) {
+    public static void printReceipt(Customer customer, Vehicle vehicle) {
         if (customer instanceof Member) {
             System.out.println("\nNota Pembayaran:");
             System.out.println("===========================");
-            System.out.println("Nama Pelanggan: " + customer.getFirstName());
+            System.out.println("Nama Pelanggan: " + customer.getFullName());
             System.out.println("ID Pelanggan: " + customer.getId());
             System.out.println("Kendaraan yang Dipesan: " + vehicle.getVehicleInfo());
             System.out.println("Lama Penyewaan (Jam): " + vehicle.getRentDuration());
@@ -18,7 +18,7 @@ public class Printer {
         } else {
             System.out.println("\nNota Pembayaran:");
             System.out.println("===========================");
-            System.out.println("Nama Pelanggan: " + customer.getFirstName());
+            System.out.println("Nama Pelanggan: " + customer.getFullName());
             System.out.println("ID Pelanggan: " + customer.getId());
             System.out.println("Kendaraan yang Dipesan: " + vehicle.getVehicleInfo());
             System.out.println("Lama Penyewaan (Jam): " + vehicle.getRentDuration());

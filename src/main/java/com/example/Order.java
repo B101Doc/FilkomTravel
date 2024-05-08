@@ -6,13 +6,13 @@ import java.time.format.DateTimeFormatter;
 
 public class Order {
 
-    LocalDate dateOrdered;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-mmmm-yyyy");
-    String formattedDateOrdered = dateOrdered.format(formatter);
-    int orderNumber;
-    double subTotal;
-    double shipCost;
-    double discount;
+   protected static LocalDate dateOrdered;
+   protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy");
+   protected static String formattedDateOrdered = dateOrdered.format(formatter);
+   protected int orderNumber;
+   protected double subTotal;
+   protected double shipCost;
+   protected double discount;
 
     public String getFormattedDateOrdered() {
         return formattedDateOrdered;
@@ -27,6 +27,7 @@ public class Order {
     }
 
     public double getShipCost() {
+        if ()
         return shipCost;
     }
 
@@ -44,47 +45,48 @@ public class Order {
         CANCELLED
     }
 
-    public enum District{
+    public enum District10{
             Blimbing,
             Kedungkandang,
             Klojen,
             Lowokwaru,
-            Sukun,
-            Ampelgading,
-            Bantur,
-            Bululawang,
-            Dampit,
-            Dau,
-            Donomulyo,
-            Gedangan,
-            Gondanglegi,
-            Jabung,
-            Kalipare,
-            Karangploso,
-            Kasembon,
-            Kepanjen,
-            Kromengan,
-            Lawang,
-            Ngajum,
-            Ngantang,
-            Pagak,
-            Pagelaran,
-            Pakis,
-            Ppakisaji,
-            Poncokusumo,
-            Pujon,
-            Singosari,
-            SumbermanjingWetan,
-            Sumberpucung,
-            Tajinan,
-            Tirtoyudo,
-            Tumpang,
-            Turen,
-            Wagir,
-            Wajak,
-            Wonosari
+            Sukun
+    }
 
-    ;
+    public enum District20{
+        Ampelgading,
+        Bantur,
+        Bululawang,
+        Dampit,
+        Dau,
+        Donomulyo,
+        Gedangan,
+        Gondanglegi,
+        Jabung,
+        Kalipare,
+        Karangploso,
+        Kasembon,
+        Kepanjen,
+        Kromengan,
+        Lawang,
+        Ngajum,
+        Ngantang,
+        Pagak,
+        Pagelaran,
+        Pakis,
+        Ppakisaji,
+        Poncokusumo,
+        Pujon,
+        Singosari,
+        SumbermanjingWetan,
+        Sumberpucung,
+        Tajinan,
+        Tirtoyudo,
+        Tumpang,
+        Turen,
+        Wagir,
+        Wajak,
+        Wonosari
     }
     
     
@@ -100,7 +102,7 @@ public class Order {
     public void checkOut(){
     }
 
-    public void printDetails(Customer customer, Vehicle vehicle){
+    public static void printDetails(Customer customer, Vehicle vehicle){
         if (customer instanceof Member) {
             System.out.println("\nFilkom Travel");
             System.out.println("\nJl. Yang Lurus");

@@ -17,12 +17,15 @@ class Menu {
         Customer customer;
 
         switch (type) {
-            case 1 -> TravelFilkom.customer = Guest.guest(in);                
-            case 2 -> Member loggedInMember = Member.memberLogin(in);
+            case 1: TravelFilkom.customer = Guest.guest(in);
+            break;
+            case 2: Member loggedInMember = Member.memberLogin(in);
                 if (loggedInMember != null) {
                     TravelFilkom.customer = loggedInMember;
-                }                
-            default -> System.out.println("Pilihan tidak valid");                
+                }
+                break;
+            default : System.out.println("Pilihan tidak valid");
+            break;
         }
     }
 
@@ -79,7 +82,7 @@ class Menu {
                 vehicle = new Bus("Bus", brand, plateNo, price, rentDuration, startRent, endRent);
                 break;
             default:
-                System.out.println("Pilihan tidak valid");
+                System.err.println("Pilihan tidak valid");
                 return;
         }
 
@@ -90,9 +93,9 @@ class Menu {
             String orderDetails = "Nama Pelanggan: " + customer.getFirstName() + "\nKendaraan: " + vehicle.getVehicleInfo() + "\nLama Penyewaan: " + rentDuration + " jam" + "\nTanggal Awal Penyewaan: " + startRent + "\nTanggal Akhir Penyewaan: " + endRent;
             History.addOrderHistory(orderDetails);
 
-            Printer.printReceipt(customer, vehicle);
+            Order.printDetails(customer, vehicle);
         } else {
-            Printer.printReceipt(customer, vehicle);
+            Order.printDetails(customer, vehicle);
         }
 
     }
@@ -127,10 +130,13 @@ class Menu {
             in.nextLine();
 
             switch (choice) {
-                case 1 -> Admin.addVehicle(in);                    
-                case 2 -> Admin.viewCustomerData();                    
-                case 3 -> System.out.println("Logout berhasil!");
-                           logout = true;                    
+                case 1: Admin.addVehicle(in);
+                break;
+                case 2: Admin.viewCustomerData();
+                break;
+                case 3: System.out.println("Logout berhasil!");
+                           logout = true;
+                           break;
             }
         }
     }

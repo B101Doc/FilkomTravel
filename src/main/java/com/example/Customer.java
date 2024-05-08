@@ -9,12 +9,14 @@ public abstract class Customer {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String email;
     private boolean hasOrder; 
 
-    public Customer(String firstName, String lastName, String phoneNumber) {
+    public Customer(String firstName, String lastName, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.email = email;
         this.hasOrder = false; 
     }
 
@@ -30,6 +32,10 @@ public abstract class Customer {
         this.phoneNumber = phoneNumber;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -40,6 +46,10 @@ public abstract class Customer {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public boolean getHasOrder(){
@@ -58,10 +68,9 @@ public abstract class Customer {
 }
 
 class Guest extends Customer {
-    public Guest(String firstName, String lastName, String phoneNumber){
-        super(firstName, lastName, phoneNumber);
+    public Guest(String firstName, String lastName, String phoneNumber, String email){
+        super(firstName, lastName, phoneNumber, email);
     }
-    private static Map<String, Guest> registeredGuests = new HashMap<String, Guest>();
 
     public static Guest guest(Scanner in){
         System.out.println("Masukkan nama depan anda: ");
@@ -70,9 +79,11 @@ class Guest extends Customer {
         String lastName = in.nextLine();
         System.out.println("Masukkan nomor telepon anda: ");
         String phoneNumber = in.nextLine();
+        System.out.println("Masukkan nama email anda: ");
+        String email = in.nextLine();
         System.out.println("Masukkan alamat anda: ");
 
-        return new Guest(firstName, lastName, phoneNumber);
+        return new Guest(firstName, lastName, phoneNumber, email);
     }
 
     @Override
@@ -111,8 +122,8 @@ class Member extends Customer {
     private static String memberPassword;
     private LocalDate joinedDate;
 
-    public Member(String firstName, String lastName, String phoneNumber, String memberId, LocalDate joinedDate) {
-        super(firstName, lastName, phoneNumber);
+    public Member(String firstName, String lastName, String phoneNumber, String email, String memberId, LocalDate joinedDate) {
+        super(firstName, lastName, phoneNumber, email);
         this.memberId = memberId;
         this.joinedDate = joinedDate;
     }
@@ -131,7 +142,7 @@ class Member extends Customer {
 
         if (username.equals(memberUsername) && password.equals(memberPassword)){
             System.out.println("Login berhasil!");
-            return new Member("apa_iyh", "tch", "0812", "dev@");
+            return new Member("apa_iyh", "tch", "0812", "dev@" );
         }
         else {
             System.err.println("Username atau password anda salah!");
