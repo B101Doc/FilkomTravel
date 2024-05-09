@@ -1,6 +1,9 @@
 package com.example;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Scanner;
+
+import static com.example.TravelFilkom.*;
 
 class Menu {
     public static void userType(Scanner in) {
@@ -15,11 +18,12 @@ class Menu {
 
 
         switch (type) {
-            case 1: TravelFilkom.customer = Guest.guest(in);
+            case 1: customer = Guest.guest(in);
+                    orderVehicle(in, customer, vehicles, vehicleCount);
             break;
             case 2: loginMember(in);
                 break;
-            case 3:         
+            case 3: registerMember(in);
             default : System.out.println("Pilihan tidak valid");
             break;
         }
@@ -66,7 +70,7 @@ class Menu {
         String end = in.nextLine();
         LocalDate endRent = LocalDate.parse(end);
 
-        Vehicle vehicle = null;
+        Vehicle vehicle;
 
         switch (vehicleType) {
             case 1:
@@ -107,6 +111,10 @@ class Menu {
         String phoneNumber = in.nextLine();
         System.out.println("Masukkan alamat email anda");
         String email = in.nextLine();
+        System.out.println("Masukkan alamat kecamatan anda");
+        System.out.println(Arrays.toString(Order.District10.values()));
+        System.out.println(Arrays.toString(Order.District20.values()));
+        Customer.setDistrict(in.nextLine());
         System.out.println("Masukkan username anda: ");
         String username = in.nextLine();
         System.out.println("Masukkan password anda: ");
@@ -125,6 +133,14 @@ class Menu {
         if (member != null) {
             TravelFilkom.loggedInMembers.put(member.getMemberUsername(), member);
             System.out.println("Login berhasil!");
+            if (TravelFilkom.choice == 5){
+                History.displayOrderHistory();
+            } else if (TravelFilkom.choice == 2) {
+                orderVehicle(in, customer, vehicles, vehicleCount);
+            }
+            else {
+                System.err.println("Pilihan tidak valid!");
+            }
         }
         else {
             System.err.println("Email atau password tidak valid");

@@ -5,6 +5,7 @@ public class TravelFilkom {
     static Map<String, Member> loggedInMembers = new HashMap<String, Member>();
     static Vehicle[] vehicles = new Vehicle[100];
     static int vehicleCount = 0;
+    static int choice;
     static Customer customer = null;
     private static Admin admin = null;
 
@@ -26,7 +27,7 @@ public class TravelFilkom {
             System.out.println("6. Keluar");
             System.out.println("===================================");
 
-            int choice = in.nextInt();
+            choice = in.nextInt();
             in.nextLine();
 
             switch (choice) {
@@ -55,13 +56,14 @@ public class TravelFilkom {
                     }
                     break;
                 case 5:
-                    Member loggedInMember = Member.loginMember();
-                    if (loggedInMember != null) {
-                        TravelFilkom.customer = loggedInMember;
-                        History.displayOrderHistory();
-                    }
+                    Menu.loginMember(in);
                     break;
                 case 6:
+                    isRunning = false;
+                    in.close();
+                break;
+                default:
+                    System.err.println("Pilihan anda salah!");
                     return;
 
 

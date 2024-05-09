@@ -11,6 +11,7 @@ public abstract class Customer {
     private static String lastName;
     private static String phoneNumber;
     private static String email;
+    private static String district;
     private static boolean hasOrder;
 
     public Customer(String firstName, String lastName, String phoneNumber, String email) {
@@ -21,20 +22,8 @@ public abstract class Customer {
         Customer.hasOrder = false;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public static void setDistrict(String district) {
+        Customer.district = district;
     }
 
     public String getFirstName() {
@@ -57,6 +46,10 @@ public abstract class Customer {
         return email;
     }
 
+    public static String getDistrict() {
+        return district;
+    }
+
     public boolean getHasOrder(){
         return hasOrder;
     }
@@ -68,7 +61,7 @@ public abstract class Customer {
 
 
     public void setHasOrder(boolean hasOrder) {
-        this.hasOrder = hasOrder;
+        Customer.hasOrder = hasOrder;
     }
 
 
@@ -91,10 +84,14 @@ class Guest extends Customer {
         String phoneNumber = in.nextLine();
         System.out.println("Masukkan nama email anda: ");
         String email = in.nextLine();
-        System.out.println("Masukkan alamat anda: ");
-        System.out.println();
+        System.out.println("Masukkan alamat kecamatan anda: ");
+        System.out.println(Arrays.toString(Order.District10.values()));
+        System.out.println(Arrays.toString(Order.District20.values()));
+        setDistrict(in.nextLine());
+
 
         return new Guest(firstName, lastName, phoneNumber, email);
+
     }
 
 
@@ -127,9 +124,9 @@ class Member extends Customer {
 
     public Member(String firstName, String lastName, String phoneNumber, String email, String memberUsername, String memberPassword, LocalDate joinedDate) {
         super(firstName, lastName, phoneNumber, email);
-        this.memberUsername = memberUsername;
-        this.memberPassword = memberPassword;
-        this.joinedDate = joinedDate;
+        Member.memberUsername = memberUsername;
+        Member.memberPassword = memberPassword;
+        Member.joinedDate = joinedDate;
     }
 
     public static String getMemberUsername() {
@@ -174,7 +171,7 @@ class Member extends Customer {
     public static Member loginMember(String emailOrPhone, String password){
         Member member = getMemberByEmailOrPhone(emailOrPhone);
 
-        if (member != null && password.equals(member.getMemberPassword())){
+        if (member != null && password.equals(getMemberPassword())){
             return member;
         }
         return null;
@@ -182,7 +179,7 @@ class Member extends Customer {
 
    static Member getMemberByEmailOrPhone(String emailOrPhone){
         for (Member member : Customer.members){
-            if (member.getEmail().equals(emailOrPhone) || member.getPhoneNumber().equals(emailOrPhone)){
+            if (member.getEmail().equals(emailOrPhone) || getPhoneNumber().equals(emailOrPhone)){
                 return member;
             }
         }

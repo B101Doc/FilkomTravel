@@ -2,6 +2,7 @@ package com.example;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 
 public class Order {
@@ -11,12 +12,9 @@ public class Order {
    protected static String formattedDateOrdered = dateOrdered.format(formatter);
    protected int orderNumber;
    protected double subTotal;
-   protected double shipCost;
+   protected static double shipCost;
    protected double discount;
 
-    public String getFormattedDateOrdered() {
-        return formattedDateOrdered;
-    }
 
     public  double getSubTotal(){
         return subTotal;
@@ -26,16 +24,22 @@ public class Order {
         return subTotal + shipCost - getDiscountTotal();
     }
 
-    public double getShipCost() {
+    public static double getShipCost() {
+            if(Customer.getDistrict().equalsIgnoreCase(Arrays.toString(District10.values()))){
+                return shipCost = 10000;
+            } else if (Customer.getDistrict().equalsIgnoreCase(Arrays.toString(District20.values()))) {
+                return shipCost = 20000;
+            }
+            else {
+                System.err.println("Kecamatan tidak ditemukan!");
+                System.err.println("Hanya menerima pengantaran di Malang!");
+            }
+
         return shipCost;
     }
 
     public double getDiscountTotal() {
         return subTotal * discount;
-    }
-
-    public void setDateOrdered(LocalDate dateOrdered) {
-        this.dateOrdered = dateOrdered;
     }
 
     public enum Status{
@@ -124,7 +128,8 @@ public class Order {
             System.out.println("Tanggal Awal Penyewaan: " + vehicle.getStartRent());
             System.out.println("Tanggal Akhir Penyewaan: " + vehicle.getEndRent());
             System.out.println("---------------------------");
-            System.out.println("Total Harga: Rp " + (vehicle.getPrice() * vehicle.getRentDuration()));
+            System.out.println("Biaya Ongkir: " + getShipCost());
+            System.out.println("Total Harga: Rp " + (vehicle.getPrice() * vehicle.getRentDuration()) + getShipCost());
             System.out.println("===========================");
         } else {
             System.err.println("Data yang anda masukkan tidak valid!");
