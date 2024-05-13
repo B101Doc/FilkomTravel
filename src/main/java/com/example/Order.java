@@ -11,13 +11,22 @@ public class Order {
    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy");
    protected static String formattedDateOrdered = dateOrdered.format(formatter);
    protected int orderNumber;
-   protected double subTotal;
+   protected static double subTotal;
    protected static double shipCost;
-   protected double discount;
+   protected static double discount;
 
 
     public  double getSubTotal(){
         return subTotal;
+    }
+
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public static double getDiscount() {
+        return discount;
     }
 
     public double getTotal() {
@@ -25,9 +34,9 @@ public class Order {
     }
 
     public static double getShipCost() {
-            if(Customer.getDistrict().equalsIgnoreCase(Arrays.toString(District10.values()))){
+            if(Customer.getDistrict().equalsIgnoreCase(Arrays.toString(DistrictCity.values()))){
                 return shipCost = 10000;
-            } else if (Customer.getDistrict().equalsIgnoreCase(Arrays.toString(District20.values()))) {
+            } else if (Customer.getDistrict().equalsIgnoreCase(Arrays.toString(DistrictRegency.values()))) {
                 return shipCost = 20000;
             }
             else {
@@ -38,7 +47,7 @@ public class Order {
         return shipCost;
     }
 
-    public double getDiscountTotal() {
+    public static double getDiscountTotal() {
         return subTotal * discount;
     }
 
@@ -48,7 +57,7 @@ public class Order {
         CANCELLED
     }
 
-    public enum District10{
+    public enum DistrictCity {
             Blimbing,
             Kedungkandang,
             Klojen,
@@ -56,7 +65,7 @@ public class Order {
             Sukun
     }
 
-    public enum District20{
+    public enum DistrictRegency {
         Ampelgading,
         Bantur,
         Bululawang,

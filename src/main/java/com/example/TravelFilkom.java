@@ -2,7 +2,7 @@ package com.example;
 import java.util.*;
 
 public class TravelFilkom {
-    static Map<String, Member> loggedInMembers = new HashMap<String, Member>();
+    static Map<String, Member> loggedInMembers = new HashMap<>();
     static Vehicle[] vehicles = new Vehicle[100];
     static int vehicleCount = 0;
     static int choice;

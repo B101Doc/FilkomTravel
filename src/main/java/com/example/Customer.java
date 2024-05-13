@@ -85,8 +85,8 @@ class Guest extends Customer {
         System.out.println("Masukkan nama email anda: ");
         String email = in.nextLine();
         System.out.println("Masukkan alamat kecamatan anda: ");
-        System.out.println(Arrays.toString(Order.District10.values()));
-        System.out.println(Arrays.toString(Order.District20.values()));
+        System.out.println(Arrays.toString(Order.DistrictCity.values()));
+        System.out.println(Arrays.toString(Order.DistrictRegency.values()));
         setDistrict(in.nextLine());
 
 

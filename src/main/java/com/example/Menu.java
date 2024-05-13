@@ -112,8 +112,8 @@ class Menu {
         System.out.println("Masukkan alamat email anda");
         String email = in.nextLine();
         System.out.println("Masukkan alamat kecamatan anda");
-        System.out.println(Arrays.toString(Order.District10.values()));
-        System.out.println(Arrays.toString(Order.District20.values()));
+        System.out.println(Arrays.toString(Order.DistrictCity.values()));
+        System.out.println(Arrays.toString(Order.DistrictRegency.values()));
         Customer.setDistrict(in.nextLine());
         System.out.println("Masukkan username anda: ");
         String username = in.nextLine();
