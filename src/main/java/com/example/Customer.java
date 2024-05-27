@@ -35,7 +35,14 @@ public abstract class Customer {
     }
 
     public static String getFullName(){
-        return firstName + " " + lastName;
+            if (lastName == null || lastName.isEmpty()) {
+                return firstName;
+            } else if (lastName != null) {
+                return firstName + " " + lastName;
+            } else {
+                System.err.println("Nama tidak valid!");
+                return null;
+            }
     }
 
     public static String getPhoneNumber() {

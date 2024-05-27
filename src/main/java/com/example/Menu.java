@@ -1,11 +1,17 @@
 package com.example;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import static com.example.TravelFilkom.*;
 
 class Menu {
+    static String startDateStr, startTimeStr, endDateStr, endTimeStr;
+
+    public static String getStartDateStr() {return startDateStr;}
+    public static String getStartTimeStr() {return startTimeStr;}
+    public static String getEndDateStr() {return endDateStr;}
+    public static String getEndTimeStr() {return endTimeStr;}
+
     public static void userType(Scanner in) {
         System.out.println("=======================");
         System.out.println("1. Masuk sebagai Guest");
@@ -19,7 +25,7 @@ class Menu {
 
         switch (type) {
             case 1: customer = Guest.guest(in);
-                    orderVehicle(in, customer, vehicles, vehicleCount);
+                    orderVehicle(in);
             break;
             case 2: loginMember(in);
                 break;
@@ -38,7 +44,7 @@ class Menu {
         }
     }
 
-    public static void orderVehicle(Scanner in, Customer customer, Vehicle[] vehicles, int vehicleCount) {
+    public static void orderVehicle(Scanner in) {
         System.out.println("\nPilih jenis kendaraan:");
         System.out.println("=======================");
         System.out.println("1. Mobil");
@@ -54,33 +60,32 @@ class Menu {
         System.out.print("Masukkan Nomer Plat Kendaraan: ");
         String plateNo = in.nextLine();
 
-
         System.out.print("Masukkan Harga Kendaraan per Jam: Rp");
         double price = in.nextDouble();
 
-        System.out.print("Masukkan Lama Penyewaan (Jam): ");
-        int rentDuration = in.nextInt();
-        in.nextLine();
+        System.out.println("Masukkan Tanggal Awal Penyewaan (dd-mm-yyyy): ");
+        startDateStr = in.next();
 
-        System.out.print("Masukkan Tanggal Awal Penyewaan (yyyy-mm-dd): ");
-        String start = in.nextLine();
-        LocalDate startRent = LocalDate.parse(start);
+        System.out.println("Masukan Waktu Awal Penyewaan (HH) ");
+        startTimeStr = in.next();
 
-        System.out.print("Masukkan Tanggal Akhir Penyewaan (yyyy-mm-dd): ");
-        String end = in.nextLine();
-        LocalDate endRent = LocalDate.parse(end);
+        System.out.println("Masukkan Tanggal Pengembalian (dd-mm-yyyy): ");
+        endDateStr = in.next();
+
+        System.out.println("Masukkan Waktu Pengembalian (HH): ");
+        endTimeStr = in.nextLine();
 
         Vehicle vehicle;
 
         switch (vehicleType) {
             case 1:
-                vehicle = new Car("Mobil", brand, plateNo, price, rentDuration, startRent, endRent);
+                vehicle = new Car("Mobil", brand, plateNo, price);
                 break;
             case 2:
-                vehicle = new Minibus("Minibus", brand, plateNo, price, rentDuration, startRent, endRent);
+                vehicle = new Minibus("Minibus", brand, plateNo, price);
                 break;
             case 3:
-                vehicle = new Bus("Bus", brand, plateNo, price, rentDuration, startRent, endRent);
+                vehicle = new Bus("Bus", brand, plateNo, price);
                 break;
             default:
                 System.err.println("Pilihan tidak valid");
@@ -91,7 +96,7 @@ class Menu {
         System.out.println("\nPesanan berhasil! Terima kasih, " + customer.getFirstName() + "!");
 
         if(customer instanceof Member) {
-            String orderDetails = "Nama Pelanggan: " + customer.getFirstName() + "\nKendaraan: " + vehicle.getVehicleInfo() + "\nLama Penyewaan: " + rentDuration + " jam" + "\nTanggal Awal Penyewaan: " + startRent + "\nTanggal Akhir Penyewaan: " + endRent;
+            String orderDetails = "Nama Pelanggan: " + customer.getFirstName() + "\nKendaraan: " + vehicle.getVehicleInfo() + "\nLama Penyewaan: " + vehicle.getRentDuration() + " jam" + "\nTanggal Awal Penyewaan: " + vehicle.getStartDate() + "\nWaktu Awal Penyewaan: " + vehicle.getStartTime() + "\nTanggal Akhir Penyewaan: " + vehicle.getEndDate() + "\nWaktu Akhir Penyewaan: " + vehicle.getEndTime();
             History.addOrderHistory(orderDetails);
 
             Order.printDetails(customer, vehicle);
@@ -131,12 +136,12 @@ class Menu {
         Member member = Member.loginMember(emailOrPhone, password);
 
         if (member != null) {
-            TravelFilkom.loggedInMembers.put(member.getMemberUsername(), member);
+            TravelFilkom.loggedInMembers.put(Member.getMemberUsername(), member);
             System.out.println("Login berhasil!");
             if (TravelFilkom.choice == 5){
                 History.displayOrderHistory();
             } else if (TravelFilkom.choice == 2) {
-                orderVehicle(in, customer, vehicles, vehicleCount);
+                orderVehicle(in);
             }
             else {
                 System.err.println("Pilihan tidak valid!");

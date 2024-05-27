@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.TravelFilkom.customer;
+
 abstract class Promotion implements Applicable, Comparable<Promotion> {
     protected String promoCode;
     protected Date startDate;
@@ -143,16 +145,19 @@ class DeliveryFeePromo extends Promotion
 
     @Override
     public double calculateTotalCashback(Order order) {
-        return 0;
+        if(order.getShipCost() == 10000 && customer instanceof Member){
+            return promoShipCost = 5000;
+        } else if (order.getShipCost() == 20000 && customer instanceof Member) {
+            return promoShipCost = 7500;
+        }
+        else {
+            return 0;
+        }
     }
 
     @Override
-    public double calculateShippingFeeDiscount(Order order, Member member, Customer customer) {
-        if(order.getShipCost() == 10000 && customer instanceof Member){
-            promoShipCost = 5000;
-        } else if (order.getShipCost() == 20000 && customer instanceof Member) {
-            promoShipCost = 7500;
-        }
+    public double calculateShippingFeeDiscount(Order order) {
         return 0;
     }
+
 }

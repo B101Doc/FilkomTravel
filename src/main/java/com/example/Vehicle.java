@@ -1,27 +1,32 @@
 package com.example;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 class Vehicle {
-    private String type;
+    private static String type;
     private String brand;
     private String plateNo;
     private double price;
-    private int rentDuration;
-    private LocalDate startRent;
-    private LocalDate endRent;
+    private LocalDate startDate;
+    private LocalTime startTime;
+    private LocalDate endDate;
+    private LocalTime endTime;
+    private long rentDuration;
 
 
-    public Vehicle() {
-    }
-
-    public Vehicle(String type, String brand, String plateNo, double price, int rentDuration, LocalDate startRent, LocalDate endRent) {
+    public Vehicle(String type, String brand, String plateNo, double price, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, long rentDuration) {
         this.type = type;
         this.brand = brand;
         this.plateNo = plateNo;
         this.price = price;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.rentDuration = rentDuration;
-        this.startRent = startRent;
-        this.endRent = endRent;
     }
 
     public Vehicle(String type, String brand, String plateNo, double price) {
@@ -51,29 +56,45 @@ class Vehicle {
         return "Jenis: " + type + "\nMerek: " + brand + "/nNomer Plat: " + plateNo;
     }
 
-    public int getRentDuration() {
-        return rentDuration;
+    public long getRentDuration() {
+        LocalDateTime startDateTime = LocalDateTime.of(getStartDate(), getStartTime());
+        LocalDateTime endDateTime = LocalDateTime.of(getEndDate(), getEndTime());
+        Duration duration = Duration.between(startDateTime, endDateTime);
+        return rentDuration = duration.toHours();
     }
 
-    public LocalDate getStartRent() {
-        return startRent;
+    public LocalDate getStartDate() {
+        return startDate = LocalDate.parse(Menu.getStartDateStr(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
-    public LocalDate getEndRent() {
-        return endRent;
+    public LocalDate getEndDate() {
+        return endDate = LocalDate.parse(Menu.getEndDateStr(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    }
+
+    public LocalTime getStartTime() {
+        return startTime = LocalTime.parse(Menu.getStartTimeStr());
+    }
+    public LocalTime getEndTime() {
+        return endTime = LocalTime.parse(Menu.getEndTimeStr());
+    }
+
+    public static String getType() {
+        return type;
+    }
+
+    public static void setType(String type) {
+        Vehicle.type = type;
     }
 }
 
 class Car extends Vehicle {
-
-    public Car(String type, String brand, String plateNo, double price, int rentDuration, LocalDate startRent, LocalDate endRent) {
-        super(type, brand, plateNo, price, rentDuration, startRent, endRent);
-    }
-
     public Car(String type, String brand, String plateNo, double price) {
         super(type, brand, plateNo, price);
     }
 
+    public Car(String type, String brand, String plateNo, double price, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, long rentDuration) {
+        super(type, brand, plateNo, price, startDate, startTime, endDate, endTime, rentDuration);
+    }
 
     @Override
     public String getVehicleInfo() {
@@ -82,13 +103,12 @@ class Car extends Vehicle {
 }
 
 class Minibus extends Vehicle {
-
-    public Minibus(String type, String brand, String plateNo, double price, int rentDuration, LocalDate startRent, LocalDate endRent) {
-        super(type, brand, plateNo, price, rentDuration, startRent, endRent);
-    }
-
     public Minibus(String type, String brand, String plateNo, double price) {
         super(type, brand, plateNo, price);
+    }
+
+    public Minibus(String type, String brand, String plateNo, double price, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, long rentDuration) {
+        super(type, brand, plateNo, price, startDate, startTime, endDate, endTime, rentDuration);
     }
 
     @Override
@@ -98,13 +118,12 @@ class Minibus extends Vehicle {
 }
 
 class Bus extends Vehicle {
-
-    public Bus(String type, String brand, String plateNo, double price, int rentDuration, LocalDate startRent, LocalDate endRent) {
-        super(type, brand, plateNo, price, rentDuration, startRent, endRent);
-    }
-
     public Bus(String type, String brand, String plateNo, double price) {
         super(type, brand, plateNo, price);
+    }
+
+    public Bus(String type, String brand, String plateNo, double price, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, long rentDuration) {
+        super(type, brand, plateNo, price, startDate, startTime, endDate, endTime, rentDuration);
     }
 
     @Override

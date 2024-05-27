@@ -1,6 +1,7 @@
 package com.example;
 
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
@@ -120,22 +121,26 @@ public class Order {
             System.out.println("\nJl. Yang Lurus");
             System.out.println(formattedDateOrdered);
             System.out.println("===========================");
-            System.out.println("Nama Pelanggan: " + Customer.getFullName());
+            System.out.println("Nama Pelanggan: " + customer.getFullName());
             System.out.println("Kendaraan yang Dipesan: " + vehicle.getVehicleInfo());
+            System.out.println("Tanggal Awal Penyewaan: " + vehicle.getStartDate());
+            System.out.println("Waktu Awal Penyewaan: " + vehicle.getStartTime());
+            System.out.println("Tanggal Akhir Penyewaan: " + vehicle.getEndDate());
+            System.out.println("Waktu Akhir Penyewaan: " + vehicle.getEndTime());
             System.out.println("Lama Penyewaan (Jam): " + vehicle.getRentDuration());
-            System.out.println("Tanggal Awal Penyewaan: " + vehicle.getStartRent());
-            System.out.println("Tanggal Akhir Penyewaan: " + vehicle.getEndRent());
             System.out.println("---------------------------");
             System.out.println("Total Harga: Rp " + (vehicle.getPrice() * vehicle.getRentDuration() - (vehicle.getPrice() * vehicle.getRentDuration() * 20/100)));
             System.out.println("===========================");
         } else if (customer instanceof Guest) {
             System.out.println("\nNota Pembayaran:");
             System.out.println("===========================");
-            System.out.println("Nama Pelanggan: " + Customer.getFullName());
+            System.out.println("Nama Pelanggan: " + customer.getFullName());
             System.out.println("Kendaraan yang Dipesan: " + vehicle.getVehicleInfo());
+            System.out.println("Tanggal Awal Penyewaan: " + vehicle.getStartDate());
+            System.out.println("Waktu Awal Penyewaan: " + vehicle.getStartTime());
+            System.out.println("Tanggal Akhir Penyewaan: " + vehicle.getEndDate());
+            System.out.println("Waktu Akhir Penyewaan: " + vehicle.getEndTime());
             System.out.println("Lama Penyewaan (Jam): " + vehicle.getRentDuration());
-            System.out.println("Tanggal Awal Penyewaan: " + vehicle.getStartRent());
-            System.out.println("Tanggal Akhir Penyewaan: " + vehicle.getEndRent());
             System.out.println("---------------------------");
             System.out.println("Biaya Ongkir: " + getShipCost());
             System.out.println("Total Harga: Rp " + (vehicle.getPrice() * vehicle.getRentDuration()) + getShipCost());

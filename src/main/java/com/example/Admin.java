@@ -3,6 +3,7 @@ import java.util.*;
 
 
 class Admin {
+
     private String username;
 
     public Admin(String username) {
@@ -10,23 +11,38 @@ class Admin {
 
     }
 
+
+
     public static void addVehicle(Scanner in) {
+
         System.out.println("\nMenambah Kendaraan:");
 
         System.out.print("Pilih jenis kendaraan (1. Mobil, 2. Minibus, 3. Bus): ");
         int vehicleType = in.nextInt();
         in.nextLine();
 
+        if (vehicleType == 1) {
+            Vehicle.setType("Mobil");
+        } else if (vehicleType == 2) {
+            Vehicle.setType("Minibus");
+        } else if (vehicleType == 3) {
+            Vehicle.setType("Bus");
+        } else {
+            System.err.println("Invalid Vehicle Type");
+        }
+
         System.out.print("Masukkan Merek Kendaraan: ");
         String brand = in.nextLine();
         System.out.print("Masukkan Nomer Plat Kendaraan: ");
         String plateNo = in.nextLine();
         System.out.print("Masukkan Harga Kendaraan: Rp");
-
-        Vehicle newVehicle = new Vehicle();
-
         double price = in.nextDouble();
-        newVehicle.setPrice(price);
+
+        Vehicle newVehicle = new Vehicle(Vehicle.getType(), brand, plateNo, price);
+
+        double priceNew = in.nextDouble();
+        newVehicle.setPrice(priceNew);
+
 
 
         switch (vehicleType) {
@@ -40,7 +56,7 @@ class Admin {
                 newVehicle = new Bus("Bus", brand, plateNo, price);
                 break;
             default:
-                System.out.println("Pilihan valid.");
+                System.err.println("Pilihan invalid.");
                 return;
         }
 
